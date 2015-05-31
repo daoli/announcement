@@ -256,8 +256,6 @@ class Announcement extends Module
 		// JS
 		$this->context->controller->addJquery();
 		$this->context->controller->addJqueryPlugin('colorpicker');
-		$this->context->controller->addJS(__PS_BASE_URI__.'js/tiny_mce/tiny_mce.js');
-		$this->context->controller->addJS(__PS_BASE_URI__.'js/tinymce.inc.js');
 		$this->context->controller->addJS($this->_path.'views/js/admin.js');
 	}
 

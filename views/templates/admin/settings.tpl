@@ -5,7 +5,7 @@
                 <label for="">{l s='Explanation to customers' mod='announcement'}</label>
                 {foreach from=$annc.langs item=lang}
                 <div id="text_{$lang.id_lang}" class="multilingual-holder" style="display: {if $lang.id_lang == $annc.lang_active}block{else}none{/if};">
-                    <textarea name="text[{$lang.id_lang}]" id="explanation_{$lang.iso_code}" class="autoload_rte">{if $annc.text}{$annc.text.{$lang.id_lang}}{elseif isset($smarty.post.text.{$lang.id_lang})}{$smarty.post.text.{$lang.id_lang}}{/if}</textarea>
+                    <textarea name="text[{$lang.id_lang}]" id="explanation_{$lang.iso_code}">{if $annc.text}{$annc.text.{$lang.id_lang}}{elseif isset($smarty.post.text.{$lang.id_lang})}{$smarty.post.text.{$lang.id_lang}}{/if}</textarea>
                 </div>
                 {/foreach}
                 {$annc.flags.text}
@@ -20,10 +20,6 @@
                     $(document).ready(function(){
                         // Colorpicker
                         $('#bg-color').mColorPicker();
-                        // tinyMCE
-                        tinySetup({
-                            editor_selector :"autoload_rte"
-                        });
                     });
                 </script>
             </div>

@@ -306,6 +306,9 @@
 				width: 45%;
 				margin: 0 5% 10px 0;
 			}
+			.annc-content textarea {
+				height: 200px;
+			}
 			.annc-content > div.input-holder label{
 				display: block;
 			}
