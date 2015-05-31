@@ -1,7 +1,9 @@
-minic cookie
+Prestashop Announcement Module
 ================
 
-A simple module to show the EU cookie law.
+A simple module to show announcements on Prestashop websites.
+
+Developed on top of Minic Cookie: https://github.com/minicstudio/miniccookie
 
 
 ###Features

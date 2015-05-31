@@ -1,17 +1,17 @@
 /* CSS Code */
-#miniccookie{
+#announcement{
 
 }
-#miniccookie .miniccookie-inner{
+#announcement .announcement-inner{
 	margin: 0 auto 0 auto;
-	padding: 2em 0;
-	max-width: 60%;
+	padding: 0.5em 0;
+	max-width: 96%;
 	text-align: right;
 }
-#miniccookie .content{
-	text-align: left;
+#announcement .content{
+	text-align: center;
 }
-#miniccookie .miniccookie-buttons{
+#announcement .announcement-buttons{
 	font-size: 100%;
 	padding: .5em 1.5em;
 	color: #444;
@@ -40,8 +40,8 @@
 	-ms-user-select: none;
 	user-select: none;
 }
-#miniccookie .miniccookie-buttons:hover, 
-#miniccookie .miniccookie-buttons:focus {
+#announcement .announcement-buttons:hover,
+#announcement .announcement-buttons:focus {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#1a000000', GradientType=0);
 	background-image: -webkit-gradient(linear,0 0,0 100%,from(transparent),color-stop(40%,rgba(0,0,0,.05)),to(rgba(0,0,0,.1)));
 	background-image: -webkit-linear-gradient(transparent,rgba(0,0,0,.05) 40%,rgba(0,0,0,.1));

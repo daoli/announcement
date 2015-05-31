@@ -1,26 +1,26 @@
-<?php 
+<?php
 /*
-* minicskeleton - a module template for Prestashop v1.5+
+* anncskeleton - a module template for Prestashop v1.5+
 * Copyright (C) 2013 S.C. Minic Studio S.R.L.
-* 
+*
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
 * the Free Software Foundation, either version 3 of the License, or
 * (at your option) any later version.
-* 
+*
 * This program is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
-* 
+*
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 if (!defined('_PS_VERSION_'))
   exit;
- 
-class MinicCookie extends Module
+
+class Announcement extends Module
 {
 	// DB file
 	const INSTALL_SQL_FILE = 'install.sql';
@@ -36,22 +36,22 @@ class MinicCookie extends Module
 		'message' => false,
 		'type' => 'conf',
 		'open' => false
-	);	
+	);
 
 	public function __construct()
 	{
-		$this->name = 'miniccookie';
+		$this->name = 'announcement';
 		$this->tab = 'front_office_features';
 		$this->version = '1.1.0';
-		$this->author = 'minic studio';
+		$this->author = 'Daoyuan Li';
 		$this->need_instance = 0;
-		$this->ps_versions_compliancy = array('min' => '1.5', 'max' => '1.6'); 
+		$this->ps_versions_compliancy = array('min' => '1.5', 'max' => '1.6');
 		// $this->dependencies = array('blockcart');
 
 		parent::__construct();
 
-		$this->displayName = $this->l('Minic Cookie');
-		$this->description = $this->l('A simple module to show the European Union cookie law.');
+		$this->displayName = $this->l('Announcement');
+		$this->description = $this->l('A simple module to show announcements on the page.');
 
 		$this->confirmUninstall = $this->l('Are you sure you want to uninstall?');
 
@@ -60,7 +60,7 @@ class MinicCookie extends Module
 		$this->admin_tpl_path 	= _PS_MODULE_DIR_.$this->name.'/views/templates/admin/';
 		$this->front_tpl_path	= _PS_MODULE_DIR_.$this->name.'/views/templates/front/';
 		$this->hooks_tpl_path	= _PS_MODULE_DIR_.$this->name.'/views/templates/hooks/';
-		
+
 	}
 
 	/**
@@ -87,24 +87,23 @@ class MinicCookie extends Module
 
 		$text = array();
 		foreach (Language::getLanguages(false) as $key => $lang) {
-			$text[$lang['id_lang']] = '<p>'.$this->l('<h3>We are using cookies to give you the best experience on our site. Cookies are files stored in your browser and are used by most websites to help personalise your web experience.</h3>
-<h4>By continuing to use our website, you are agreeing to our use of cookies.</h4>').'</p>';
+			$text[$lang['id_lang']] = '<p>'.$this->l('<h5>This is an announcement. (Prestashop module by <a href="daoyuan.li">Daoyuan Li</a> based on <a href="https://github.com/minicstudio/miniccookie">Minic Cookie</a>.)</h5>').'</p>';
 		}
 
 		$settings = array(
-			'autohide' => 1,
-			'always' => 0,
-			'time' => 15,
+			'autohide' => 0,
+			'always' => 1,
+			'time' => 99999,
 			'link' => 0,
-			'bg_color' => 'rgb(255,255,255)',
+			'bg_color' => 'rgb(255, 255, 180)',
 		);
 
-		if (!parent::install() || 
-			!$this->registerHook('displayFooter') || 
-			!$this->registerHook('displayHeader') || 
-			!$this->registerHook('displayBackOfficeHeader') || 
-			!$this->registerHook('displayAdminHomeQuickLinks') || 
-			!Configuration::updateValue(strtoupper($this->name).'_START', 1) || 
+		if (!parent::install() ||
+			!$this->registerHook('displayFooter') ||
+			!$this->registerHook('displayHeader') ||
+			!$this->registerHook('displayBackOfficeHeader') ||
+			!$this->registerHook('displayAdminHomeQuickLinks') ||
+			!Configuration::updateValue(strtoupper($this->name).'_START', 1) ||
 			!Configuration::updateValue(strtoupper($this->name).'_TEXT', $text, true) ||
 			!Configuration::updateValue(strtoupper($this->name).'_SETTINGS', serialize($settings)))
 			return false;
@@ -116,10 +115,10 @@ class MinicCookie extends Module
 	 */
 	public function uninstall()
 	{
-		if (!parent::uninstall() || 
-			!Configuration::deleteByName(strtoupper($this->name).'_START') || 
-			!Configuration::deleteByName(strtoupper($this->name).'_TEXT') || 
-			!Configuration::deleteByName(strtoupper($this->name).'_LINK') || 
+		if (!parent::uninstall() ||
+			!Configuration::deleteByName(strtoupper($this->name).'_START') ||
+			!Configuration::deleteByName(strtoupper($this->name).'_TEXT') ||
+			!Configuration::deleteByName(strtoupper($this->name).'_LINK') ||
 			!Configuration::deleteByName(strtoupper($this->name).'_SETTINGS'))
 			return false;
 		return true;
@@ -127,7 +126,7 @@ class MinicCookie extends Module
 
 	/**
  	 * admin page
-	 */	
+	 */
 	public function getContent()
 	{
 		if(Tools::isSubmit('submitSettings'))
@@ -143,7 +142,7 @@ class MinicCookie extends Module
 			$link[$lang['id_lang']] = Configuration::get(strtoupper($this->name).'_LINK', $lang['id_lang']);
 		}
 
-		$this->smarty->assign('minic', array(
+		$this->smarty->assign('annc', array(
 			'first_start' 	 => $conf[strtoupper($this->name).'_START'],
 
 			'admin_tpl_path' => $this->admin_tpl_path,
@@ -176,7 +175,7 @@ class MinicCookie extends Module
 			'lang_active' => $this->context->language->id,
 
 			'langs' => $languages,
-			'lang_iso' => $this->context->language->iso_code, 
+			'lang_iso' => $this->context->language->iso_code,
 			'css_dir' => _THEME_CSS_DIR_,
             'ad' => dirname($_SERVER["PHP_SELF"]),
             'base_uri' => __PS_BASE_URI__,
@@ -185,14 +184,14 @@ class MinicCookie extends Module
             'link' => $link,
             'settings' => unserialize(Configuration::get(strtoupper($this->name).'_SETTINGS'))
 		));
-	
+
 		// Change first start
 		if($conf[strtoupper($this->name).'_START'] == 1)
 			Configuration::updateValue(strtoupper($this->name).'_START', 0);
 
 		$this->smarty->assign('response', $this->response);
 
-		return $this->display(__FILE__, 'views/templates/admin/miniccookie.tpl');
+		return $this->display(__FILE__, 'views/templates/admin/announcement.tpl');
 	}
 
 	public function updateSettings()
@@ -228,7 +227,7 @@ class MinicCookie extends Module
 	 *
 	 * @param $message string - optional - the message to show
 	 * @param $type string - optional - the type of the message (conf, error, warn)
-	 * @param $open string - optional - which minic container to show, (#sample)
+	 * @param $open string - optional - which annc container to show, (#sample)
 	 */
 	public function setResponse($message = false, $type = 'conf', $open = false)
 	{
@@ -266,9 +265,9 @@ class MinicCookie extends Module
 	 * Hook for back office dashboard
 	 */
 	public function hookDisplayAdminHomeQuickLinks()
-	{	
-		$this->context->smarty->assign('miniccookie', $this->name);
-	    return $this->display(__FILE__, 'views/templates/hooks/quick_links.tpl');    
+	{
+		$this->context->smarty->assign('announcement', $this->name);
+	    return $this->display(__FILE__, 'views/templates/hooks/quick_links.tpl');
 	}
 
 	// FRONT OFFICE HOOKS
@@ -288,18 +287,18 @@ class MinicCookie extends Module
  	 * Footer hook
 	 */
 	public function hookDisplayFooter($params)
-	{		
+	{
 		$settings = unserialize(Configuration::get(strtoupper($this->name).'_SETTINGS'));
 
-		if(!isset($_COOKIE['miniccookie']) || $settings['always'] == 1){
-			$this->context->smarty->assign('miniccookie', array(
+		if(!isset($_COOKIE['announcement']) || $settings['always'] == 1){
+			$this->context->smarty->assign('announcement', array(
 				'settings' => unserialize(Configuration::get(strtoupper($this->name).'_SETTINGS')),
 				'text' => Configuration::get(strtoupper($this->name).'_TEXT', $this->context->language->id),
 				'link' => Configuration::get(strtoupper($this->name).'_LINK', $this->context->language->id)
 			));
 		}
 
-		setcookie('miniccookie', 1, time()+60*60*24*356);
+		setcookie('announcement', 1, time()+60*60*24*356);
 
 		return $this->display(__FILE__, 'views/templates/hooks/home.tpl');
 	}

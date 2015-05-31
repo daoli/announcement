@@ -9,7 +9,7 @@ jQuery(document).ready(function() {
     		$(this).children('input').val(1);
     	}
     });
-    
+
 // Popup functions
 	// Open
 	$('.open-popup').click(function(e){
@@ -28,7 +28,7 @@ jQuery(document).ready(function() {
 		e.preventDefault();
 		$('.minic-container.active').slideUp();
 		var container = $(this).attr('href');
-		$(container).addClass('active').slideDown(function(){			
+		$(container).addClass('active').slideDown(function(){
 			$.scrollTo(container, 500, {offset: {top: -50}});
 		});
 	});
@@ -69,7 +69,7 @@ jQuery(document).ready(function() {
 	$('.message .close').live('click', function(){
 		$(this).parent().fadeOut();
 	});
-	
+
 });
 var minic = {
 	/*
@@ -119,7 +119,7 @@ var minic = {
 		}
 		if(!info.email){
 			this.messages.email = 'E-mail is required.';
-			error = true;	
+			error = true;
 		}
 		if(!info.domain){
 			this.messages.domain = 'Website domain is required.';
@@ -129,7 +129,7 @@ var minic = {
 			this.messages.message = 'No message?';
 			error = true;
 		}
-		
+
 		if(error){
 			this.showResponse($('#feedback-response'), this.messages, 'error');
 			return false;
@@ -187,7 +187,7 @@ var minic = {
 		}
 		if(!info.email){
 			this.messages.email = 'E-mail is required.';
-			error = true;	
+			error = true;
 		}
 		if(!info.domain){
 			this.messages.domain = 'Website domain is required.';
@@ -197,7 +197,7 @@ var minic = {
 			this.messages.message = 'No message?';
 			error = true;
 		}
-		
+
 		if(error){
 			this.showResponse($('#bug-response'), this.messages, 'error');
 			return false;
@@ -240,11 +240,11 @@ var minic = {
 			$.each(messages, function(index, value){
 				html += '<p><b>'+i+'.</b> '+value+'</p>';
 				i++;
-			});	
+			});
 		}else{
 			html = messages;
 		}
-		
+
 		where.hide().children('.content').html(html);
 		where.removeClass('conf, error').addClass(type).fadeIn();
 		$.scrollTo(where, 500, {offset: {top: -50}});
@@ -264,6 +264,6 @@ var minic = {
 	* popup - the clicked element
 	*/
 	closePopup: function(popup){
-		$(popup.attr('data-popup')).removeClass('active').fadeOut();	
+		$(popup.attr('data-popup')).removeClass('active').fadeOut();
 	},
 }
