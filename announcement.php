@@ -87,7 +87,7 @@ class Announcement extends Module
 
 		$text = array();
 		foreach (Language::getLanguages(false) as $key => $lang) {
-			$text[$lang['id_lang']] = '<p>'.$this->l('<h5>This is an announcement. (Prestashop module by <a href="daoyuan.li">Daoyuan Li</a> based on <a href="https://github.com/minicstudio/miniccookie">Minic Cookie</a>.)</h5>').'</p>';
+			$text[$lang['id_lang']] = $this->l('This is an announcement. (Prestashop module by <a href="http://daoyuan.li">Daoyuan Li</a> based on <a href="https://github.com/minicstudio/miniccookie">Minic Cookie</a>.)');
 		}
 
 		$settings = array(
